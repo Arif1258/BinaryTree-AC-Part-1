@@ -148,3 +148,67 @@ public class BinaryTreesB {
         System.out.println(sumOfNodes(root));
     }
 }
+
+// symmetric tree leetcode -101
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        return (root == null || isSymmetric1(root.left,root.right)) ;
+
+    }
+    public boolean isSymmetric1(TreeNode left,TreeNode right){
+        if(left == null || right == null) return left==right;
+        if(left.val != right.val) return false;
+
+        return isSymmetric1(left.left,right.right) && 
+        isSymmetric1(left.right,  right.left);
+    }
+}
+
+// 783. Minimum Distance Between BST Nodes
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    private Integer prev = null;
+    private int best = Integer.MAX_VALUE;
+    public int minDiffInBST(TreeNode root) {
+        inorder(root);
+        return best;
+    }
+    public void inorder(TreeNode root){
+        if(root == null ) return;
+        inorder(root.left);
+        if(prev != null){
+            best = Math.min(best,root.val-prev);
+        }
+        prev=root.val;
+        inorder(root.right);
+    }
+}
